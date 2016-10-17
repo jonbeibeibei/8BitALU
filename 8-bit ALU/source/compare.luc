@@ -1,0 +1,21 @@
+module compare (
+    input alufn[6],
+    input z,
+    input v,
+    input n,
+    output cmp[8]
+  ) {
+
+  always {
+    case(alufn[2:1]){
+      b01:
+        cmp[0] = z;
+      b10:
+        cmp[0] = n ^ v;         // ^ is XOR
+      b11:
+        cmp[0] = z | (n ^ v);   // | is OR
+      default:
+        cmp = 8h00;
+    }
+  }
+}

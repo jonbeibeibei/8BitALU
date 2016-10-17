@@ -1,0 +1,58 @@
+module boolean (
+    input a[8],
+    input b[8],
+    input alufn[6],
+    output bool[8]
+  ) {
+  
+  var i;
+
+  always {
+    case(alufn[3:0]) {
+      b1000:
+        for (i = 0; i < 8; i++) {
+          case(a[i] + b[i]) {
+            b10:
+              bool[i] = 1;
+            default:
+              bool[i] = 0;
+          }
+        }  
+          
+      b1110:
+        for (i = 0; i < 8; i++) {
+          case(a[i] + b[i]) {
+            b00:
+              bool[i] = 0;
+            default:
+              bool[i] = 1; 
+          }
+        }
+        
+     b0110:
+       for (i = 0; i < 8; i++) {
+         case(a[i] + b[i]) {
+           b00:
+             bool[i] = 0;
+           b10:
+             bool[i] = 0;
+           default:
+             bool[i] = 1;
+          }
+        }
+     
+     b1010:
+       for (i = 0; i < 8; i++) {
+         case(a[i]) {
+           1:
+             bool[i] = 1;
+           default:
+             bool[i] = 0;
+         }
+       }
+        
+     default:
+       bool = 8h00;
+     }  
+   }
+}

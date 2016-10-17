@@ -1,0 +1,8 @@
+INTSTYLE=pa
+INFILE=C:\Users\KaiLue\Documents\mojo\8-bit ALU\work\planAhead\8-bit ALU\8-bit ALU.runs\impl_1\mojo_top_0_routed.ncd
+OUTFILE=C:\Users\KaiLue\Documents\mojo\8-bit ALU\work\planAhead\8-bit ALU\8-bit ALU.runs\impl_1\mojo_top_0.bit
+FAMILY=Spartan6
+PART=xc6slx9-2tqg144
+WORKINGDIR=C:\Users\KaiLue\Documents\mojo\8-bit ALU\work\planAhead\8-bit ALU\8-bit ALU.runs\impl_1
+LICENSE=WebPack
+USER_INFO=211255555_0_0_735
