@@ -20,9 +20,9 @@ module mojo_top (
   
   sig rst;                  // reset signal
   sig result[8];
-  //compare compare;
-  //boolean boolean;
-  //shifter shift;
+  compare compare;
+  boolean boolean;
+  shifter shift;
   adder add;
   
   .clk(clk) {
@@ -46,22 +46,22 @@ module mojo_top (
     
     
     ///////////////compare start/////////////////////////////////////
-    //compare.alufn[5:0] = io_dip[2][5:0];
-    //compare.z = add.z; // = name.z
-    //compare.v = add.v; // = name.v
-    //compare.n = add.n; // = name.n
+    compare.alufn[5:0] = io_dip[2][5:0];
+    compare.z = add.z; // = name.z
+    compare.v = add.v; // = name.v
+    compare.n = add.n; // = name.n
     
     //result = compare.cmp;
-    
+     
     //led = result; // change depending on finial decision
     //////////////compare end///////////////////////////////////////
     
     
     
     /////////////boolean start///////////////////////////////////
-    //boolean.a[7:0] = io_dip[1];
-    //boolean.b[7:0] = io_dip[0];
-    //boolean.alufn[5:0] = io_dip[2][5:0];
+    boolean.a[7:0] = io_dip[1];
+    boolean.b[7:0] = io_dip[0];
+    boolean.alufn[5:0] = io_dip[2][5:0];
     
     //result = boolean.bool;
     
@@ -71,10 +71,10 @@ module mojo_top (
     
     
     /////////////shift start////////////////////////////////
-    //shift.a[7:0] = io_dip[1];
-    //shift.b[7:0] = io_dip[0];
-    //shift.alufn[5:0] = io_dip[2][5:0];
-    //io_led = io_dip;
+    shift.a[7:0] = io_dip[1];
+    shift.b[7:0] = io_dip[0];
+    shift.alufn[5:0] = io_dip[2][5:0];
+    io_led = io_dip;
     
     //result = shift.out;
     
@@ -89,10 +89,34 @@ module mojo_top (
     add.alufn[5:0] = io_dip[2][5:0];
     io_led = io_dip;
     
-    result = add.sum1;
+    //result = add.sum1;
     
-    led = result;
+    //led = result;
     /////////////////////add end///////////////////////
+    
+    ////////////////////selector start///////////////////
+    
+    case(io_dip[2][5:4]) {
+      b00: 
+        result = add.sum1;
+        
+      b01:
+        result = boolean.bool;
+        
+      b10:
+        result = shift.out;
+        
+      b11: 
+        result = compare.cmp;
+        
+      default:
+        result = 8b00;
+        
+      }
+    
+    ///////////////////selector end////////////////////////
+    
+    led = result; // change depending on final decision
     
   }
 }
