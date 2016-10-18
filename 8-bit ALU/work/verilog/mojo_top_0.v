@@ -30,15 +30,21 @@ module mojo_top_0 (
   
   reg [7:0] result;
   
-  wire [8-1:0] M_boolean_bool;
-  reg [8-1:0] M_boolean_a;
-  reg [8-1:0] M_boolean_b;
-  reg [6-1:0] M_boolean_alufn;
-  boolean_1 boolean (
-    .a(M_boolean_a),
-    .b(M_boolean_b),
-    .alufn(M_boolean_alufn),
-    .bool(M_boolean_bool)
+  wire [8-1:0] M_add_sum1;
+  wire [1-1:0] M_add_z;
+  wire [1-1:0] M_add_v;
+  wire [1-1:0] M_add_n;
+  reg [6-1:0] M_add_alufn;
+  reg [8-1:0] M_add_a;
+  reg [8-1:0] M_add_b;
+  adder_1 add (
+    .alufn(M_add_alufn),
+    .a(M_add_a),
+    .b(M_add_b),
+    .sum1(M_add_sum1),
+    .z(M_add_z),
+    .v(M_add_v),
+    .n(M_add_n)
   );
   
   wire [1-1:0] M_reset_cond_out;
@@ -59,10 +65,11 @@ module mojo_top_0 (
     io_led = 24'h000000;
     io_seg = 8'hff;
     io_sel = 4'hf;
-    M_boolean_a[0+7-:8] = io_dip[8+7-:8];
-    M_boolean_b[0+7-:8] = io_dip[0+7-:8];
-    M_boolean_alufn[0+5-:6] = io_dip[16+0+5-:6];
-    result = M_boolean_bool;
+    M_add_a[0+7-:8] = io_dip[8+7-:8];
+    M_add_b[0+7-:8] = io_dip[0+7-:8];
+    M_add_alufn[0+5-:6] = io_dip[16+0+5-:6];
+    io_led = io_dip;
+    result = M_add_sum1;
     led = result;
   end
 endmodule
