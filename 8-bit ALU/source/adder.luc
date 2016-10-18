@@ -20,10 +20,6 @@ module adder ( //addition, subtraction, multiplication and modulo functions
          sum = a+b; //adding 
        b01: 
          sum = a-b; //subtracting        
-       b10: 
-         sum = a*b; //multiplier        
-       b11: 
-         sum = a-(a/b*b); //modulo
          
        default:
          sum = a+b;
