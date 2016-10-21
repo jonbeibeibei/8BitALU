@@ -98,6 +98,9 @@ module mojo_top (
     
     case(io_dip[2][5:4]) {
       b00: 
+        io_led[2] = add.z;
+        io_led[1] = add.v;
+        io_led[0] = add.n;
         result = add.sum1;
         
       b01:
@@ -106,7 +109,11 @@ module mojo_top (
       b10:
         result = shift.out;
         
-      b11: 
+      b11:
+        io_led[2] = add.z;
+        io_led[1] = add.v;
+        io_led[0] = add.n;
+         
         result = compare.cmp;
         
       default:

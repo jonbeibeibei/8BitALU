@@ -1,6 +1,6 @@
 module adder ( //addition, subtraction, multiplication and modulo functions
      //ALU inputs
-     input alufn[6],
+     input alufn[8],
      input a[8],
      input b[8],
      
@@ -12,22 +12,36 @@ module adder ( //addition, subtraction, multiplication and modulo functions
    ) {
    
    sig sum[9]; //9bit output
+   sig xb; // flip b[7]
    
    always {
      
-     case(alufn[1:0]){
-       b00:
-         sum = a+b; //adding 
-       b01: 
-         sum = a-b; //subtracting        
-         
+     
+    
+     case(alufn[7:6]){
+       b10:
+         sum = a*b; //multiplier
+       b01:
+         sum = a-(a/b*b); //modulo
        default:
-         sum = a+b;
+         case(alufn[0]){  // run adder or subtractor by defaul
+           b0:
+             sum = a+b; //adding
+             xb = b[7];
+           b1: 
+             sum = a-b; //subtracting
+             xb = ~b[7];   //flip     
+         
+           default:
+             sum = a+b;  
+             xb = b[7];                                                      
    }
+    }
+    
      //outputting values
      sum1=sum[7:0];
-     v = (a[7] & b[7] & (~sum[7])) | ((~a[7])&(~b[7])&sum[7]);
+     v = (a[7] & xb & (~sum[7])) | ((~a[7])&(~xb)&sum[7]);
      n = sum[7];
-     z = ~|sum;
+     z = ~|sum[7:0];
  }
  }
