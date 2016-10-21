@@ -8,11 +8,15 @@ module compare (
 
   always {
     case(alufn[2:1]){
-      b01:
-        cmp[0] = z;
-      b10:
+      b01:                      // A = B
+        cmp[0] = z;             // everything 0 
+        
+                                
+      b10:                      // A < B
         cmp[0] = n ^ v;         // ^ is XOR
-      b11:
+        
+                                
+      b11:                      // A <= B
         cmp[0] = z | (n ^ v);   // | is OR
       default:
         cmp = 8h00;

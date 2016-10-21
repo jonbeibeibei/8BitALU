@@ -8,7 +8,7 @@ Target Device  : xc6slx9
 Target Package : tqg144
 Target Speed   : -2
 Mapper Version : spartan6 -- $Revision: 1.55 $
-Mapped Date    : Mon Oct 17 15:17:41 2016
+Mapped Date    : Fri Oct 21 10:51:25 2016
 
 Design Summary
 --------------
@@ -16,21 +16,21 @@ Number of errors:      0
 Number of warnings:    6
 Slice Logic Utilization:
   Number of Slice Registers:                     0 out of  11,440    0%
-  Number of Slice LUTs:                         73 out of   5,720    1%
-    Number used as logic:                       73 out of   5,720    1%
-      Number using O6 output only:              65
-      Number using O5 output only:               2
-      Number using O5 and O6:                    6
+  Number of Slice LUTs:                         69 out of   5,720    1%
+    Number used as logic:                       69 out of   5,720    1%
+      Number using O6 output only:              64
+      Number using O5 output only:               0
+      Number using O5 and O6:                    5
       Number used as ROM:                        0
     Number used as Memory:                       0 out of   1,440    0%
 
 Slice Logic Distribution:
-  Number of occupied Slices:                    27 out of   1,430    1%
-  Number of MUXCYs used:                        24 out of   2,860    1%
-  Number of LUT Flip Flop pairs used:           73
-    Number with an unused Flip Flop:            73 out of      73  100%
-    Number with an unused LUT:                   0 out of      73    0%
-    Number of fully used LUT-FF pairs:           0 out of      73    0%
+  Number of occupied Slices:                    32 out of   1,430    2%
+  Number of MUXCYs used:                        12 out of   2,860    1%
+  Number of LUT Flip Flop pairs used:           69
+    Number with an unused Flip Flop:            69 out of      69  100%
+    Number with an unused LUT:                   0 out of      69    0%
+    Number of fully used LUT-FF pairs:           0 out of      69    0%
     Number of slice register sites lost
       to control set restrictions:               0 out of  11,440    0%
 
@@ -58,7 +58,7 @@ Specific Feature Utilization:
   Number of BUFHs:                               0 out of     128    0%
   Number of BUFPLLs:                             0 out of       8    0%
   Number of BUFPLL_MCBs:                         0 out of       4    0%
-  Number of DSP48A1s:                            2 out of      16   12%
+  Number of DSP48A1s:                            0 out of      16    0%
   Number of ICAPs:                               0 out of       1    0%
   Number of MCBs:                                0 out of       2    0%
   Number of PCILOGICSEs:                         0 out of       2    0%
@@ -67,10 +67,10 @@ Specific Feature Utilization:
   Number of STARTUPs:                            0 out of       1    0%
   Number of SUSPEND_SYNCs:                       0 out of       1    0%
 
-Average Fanout of Non-Clock Nets:                3.45
+Average Fanout of Non-Clock Nets:                3.75
 
 Peak Memory Usage:  373 MB
-Total REAL time to MAP completion:  4 secs 
+Total REAL time to MAP completion:  5 secs 
 Total CPU time to MAP completion (all processors):   4 secs 
 
 Table of Contents
@@ -136,7 +136,7 @@ INFO:Pack:1650 - Map created a placed design.
 Section 4 - Removed Logic Summary
 ---------------------------------
   13 block(s) removed
-   4 block(s) optimized away
+   1 block(s) optimized away
    7 signal(s) removed
 
 Section 5 - Removed Logic
@@ -147,7 +147,7 @@ The trimmed logic reported below is either:
    2. part of disabled logic
    3. a side-effect of other trimmed logic
 
-The signal "spi_channel_3_OBUFT" is unused and has been removed.
+The signal "M_compare_cmp[1]" is unused and has been removed.
  Unused block "XST_GND" (ZERO) removed.
 The signal "spi_miso" is unused and has been removed.
  Unused block "spi_miso_OBUFT" (TRI) removed.
@@ -171,9 +171,6 @@ Unused block "spi_miso" (PAD) removed.
 Optimized Block(s):
 TYPE 		BLOCK
 VCC 		XST_VCC
-GND 		add/GND
-VCC 		add/VCC
-VCC 		add/a[7]_b[7]_div_3/XST_VCC
 
 Section 6 - IOB Properties
 --------------------------

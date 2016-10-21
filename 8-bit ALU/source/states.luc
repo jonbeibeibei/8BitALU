@@ -1,0 +1,19 @@
+module states #(
+    STATE_SIZE = 3,
+    ADDER = 0,
+    BOOLEAN = 1,
+    COMPARE = 2,
+    SHIFTER = 3
+    )(
+    input clk,  // clock
+    input rst  // reset
+    
+  ){
+  
+  
+  
+
+  always @ begin {
+    out = 0;
+  }
+}

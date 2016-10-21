@@ -30,6 +30,41 @@ module mojo_top_0 (
   
   reg [7:0] result;
   
+  wire [8-1:0] M_compare_cmp;
+  reg [6-1:0] M_compare_alufn;
+  reg [1-1:0] M_compare_z;
+  reg [1-1:0] M_compare_v;
+  reg [1-1:0] M_compare_n;
+  compare_1 compare (
+    .alufn(M_compare_alufn),
+    .z(M_compare_z),
+    .v(M_compare_v),
+    .n(M_compare_n),
+    .cmp(M_compare_cmp)
+  );
+  
+  wire [8-1:0] M_boolean_bool;
+  reg [8-1:0] M_boolean_a;
+  reg [8-1:0] M_boolean_b;
+  reg [6-1:0] M_boolean_alufn;
+  boolean_2 boolean (
+    .a(M_boolean_a),
+    .b(M_boolean_b),
+    .alufn(M_boolean_alufn),
+    .bool(M_boolean_bool)
+  );
+  
+  wire [8-1:0] M_shift_out;
+  reg [8-1:0] M_shift_a;
+  reg [8-1:0] M_shift_b;
+  reg [6-1:0] M_shift_alufn;
+  shifter_3 shift (
+    .a(M_shift_a),
+    .b(M_shift_b),
+    .alufn(M_shift_alufn),
+    .out(M_shift_out)
+  );
+  
   wire [8-1:0] M_add_sum1;
   wire [1-1:0] M_add_z;
   wire [1-1:0] M_add_v;
@@ -37,7 +72,7 @@ module mojo_top_0 (
   reg [6-1:0] M_add_alufn;
   reg [8-1:0] M_add_a;
   reg [8-1:0] M_add_b;
-  adder_1 add (
+  adder_4 add (
     .alufn(M_add_alufn),
     .a(M_add_a),
     .b(M_add_b),
@@ -49,7 +84,7 @@ module mojo_top_0 (
   
   wire [1-1:0] M_reset_cond_out;
   reg [1-1:0] M_reset_cond_in;
-  reset_conditioner_2 reset_cond (
+  reset_conditioner_5 reset_cond (
     .clk(clk),
     .in(M_reset_cond_in),
     .out(M_reset_cond_out)
@@ -65,11 +100,39 @@ module mojo_top_0 (
     io_led = 24'h000000;
     io_seg = 8'hff;
     io_sel = 4'hf;
+    M_compare_alufn[0+5-:6] = io_dip[16+0+5-:6];
+    M_compare_z = M_add_z;
+    M_compare_v = M_add_v;
+    M_compare_n = M_add_n;
+    M_boolean_a[0+7-:8] = io_dip[8+7-:8];
+    M_boolean_b[0+7-:8] = io_dip[0+7-:8];
+    M_boolean_alufn[0+5-:6] = io_dip[16+0+5-:6];
+    M_shift_a[0+7-:8] = io_dip[8+7-:8];
+    M_shift_b[0+7-:8] = io_dip[0+7-:8];
+    M_shift_alufn[0+5-:6] = io_dip[16+0+5-:6];
+    io_led = io_dip;
     M_add_a[0+7-:8] = io_dip[8+7-:8];
     M_add_b[0+7-:8] = io_dip[0+7-:8];
     M_add_alufn[0+5-:6] = io_dip[16+0+5-:6];
     io_led = io_dip;
-    result = M_add_sum1;
+    
+    case (io_dip[16+4+1-:2])
+      2'h0: begin
+        result = M_add_sum1;
+      end
+      2'h1: begin
+        result = M_boolean_bool;
+      end
+      2'h2: begin
+        result = M_shift_out;
+      end
+      2'h3: begin
+        result = M_compare_cmp;
+      end
+      default: begin
+        result = 8'h00;
+      end
+    endcase
     led = result;
   end
 endmodule
